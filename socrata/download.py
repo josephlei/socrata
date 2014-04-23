@@ -26,8 +26,8 @@ def get(warehouse, url, requests_get = requests.get):
 
 def page(get, domain_with_scheme, page_number):
     full_url = urljoin(domain_with_scheme, '/api/views?page=%d' % page_number)
-    raw = get(full_url)
-    search_results = json.loads(raw)
+    response = get(full_url)
+    search_results = json.loads(response.text)
     return search_results
 
 def download(warehouse, domain):
