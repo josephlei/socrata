@@ -28,10 +28,6 @@ def test_get_error():
         raise AssertionError('An error should have been raised.')
 
 def test_page():
-    the_json = '[{}]'
     Response = namedtuple('Response', ['text'])
-    fake_warehouse = {
-        'https://foo.bar/api/views?page=1': Response(the_json),
-    }
-    observed = dl.page(lambda _: the_json, 'https://foo.bar', 1)
+    observed = dl.page(lambda _: Response('[{}]'), 'https://foo.bar', 1)
     n.assert_list_equal(observed, [{}])
