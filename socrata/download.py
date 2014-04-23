@@ -4,7 +4,7 @@ try:
 except ImportError:
     from urlparse import urljoin
 
-import requests.get
+import requests
 
 def get(warehouse, url, requests_get = requests.get):
     if url in warehouse:
@@ -17,9 +17,9 @@ def get(warehouse, url, requests_get = requests.get):
             warehouse[url] = output
     return output
 
-def page(get, domain, page_number):
-    full_url = urljoin(domain, '/api/views?page=%d' % page_number)
-    raw = get(full_url, cachedir = directory)
+def page(get, domain_with_scheme, page_number):
+    full_url = urljoin(domain_with_scheme, '/api/views?page=%d' % page_number)
+    raw = get(full_url)
     search_results = json.loads(raw)
     return search_results
 
