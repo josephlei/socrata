@@ -17,7 +17,11 @@ def get(warehouse, url, requests_get = requests.get):
         else:
             output = None, response
         warehouse[url] = output
-    return output
+    error, response = output
+    if error == None:
+        return response
+    else:
+        raise error
 
 def page(get, domain_with_scheme, page_number):
     full_url = urljoin(domain_with_scheme, '/api/views?page=%d' % page_number)
