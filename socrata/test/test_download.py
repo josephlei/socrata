@@ -3,7 +3,7 @@ import nose.tools as n
 import socrata.download as dl
 
 def test_get_success():
-    fake_warehouse = []
+    fake_warehouse = {}
     url = 'http://a.b/c'
     expected_response = 88
     observed_response = dl.get(fake_warehouse, url, requests_get = lambda _: int(expected_response))
@@ -11,7 +11,7 @@ def test_get_success():
     n.assert_tuple_equal(fake_warehouse[url], (None, expected_response))
 
 def test_get_error():
-    fake_warehouse = []
+    fake_warehouse = {}
     url = 'http://a.b/c'
 
     error = ValueError('This is a test.')

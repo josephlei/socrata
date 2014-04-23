@@ -13,8 +13,10 @@ def get(warehouse, url, requests_get = requests.get):
         try:
             response = requests_get(url)
         except Exception as error:
-            output = error, response
-            warehouse[url] = output
+            output = error, None
+        else:
+            output = None, response
+        warehouse[url] = output
     return output
 
 def page(get, domain_with_scheme, page_number):
