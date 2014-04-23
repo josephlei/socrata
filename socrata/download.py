@@ -6,12 +6,12 @@ except ImportError:
 
 import requests.get
 
-def get(warehouse, url):
+def get(warehouse, url, requests_get = requests.get):
     if url in warehouse:
         output = warehouse[url]
     else:
         try:
-            response = requests.get(url)
+            response = requests_get(url)
         except Exception as error:
             output = error, response
             warehouse[url] = output
