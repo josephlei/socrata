@@ -1,28 +1,34 @@
-import os
-from time import sleep
-import re
 import json
+try:
+    from urllib.parse import urljoin
+except ImportError:
+    from urlparse import urljoin
 
-from pickle_warehouse import Warehouse
+import requests.get
 
-
-def socrata(url, directory):
-    page = 1
-    while True:
-        full_url = urljoin(url, '/api/views?page=%d' % page)
-        filename = os.path.join(directory, re.sub('^https?://', '', full_url))
-        raw = get(full_url, cachedir = directory)
+def get(warehouse, url):
+    if url in warehouse:
+        output = warehouse[url]
+    else:
         try:
-            search_results = json.loads(raw)
-        except ValueError:
-            os.remove(filename)
-            raw = get(full_url, cachedir = directory)
-            try:
-                search_results = json.loads(raw)
-            except ValueError:
-                print('**Something is wrong with %s**' % filename)
-                break
+            response = requests.get(url)
+        except Exception as error:
+            output = error, response
+            warehouse[url] = output
+    return output
+
+def page(get, domain, page_number):
+    full_url = urljoin(domain, '/api/views?page=%d' % page_number)
+    raw = get(full_url, cachedir = directory)
+    search_results = json.loads(raw)
+    return search_results
+
+def download(warehouse, domain):
+    page_number = 1
+    while True:
+        search_results = page(functools.partial(get, warehouse), domain, page_number)
+        if search_results == []:
+            break
         else:
-            if len(search_results) == 0:
-                break
-        page += 1
+            yield from search_results
+            page_number += 1
