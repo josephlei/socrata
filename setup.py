@@ -1,8 +1,8 @@
 from distutils.core import setup
 
-from pickle_warehouse import __version__
+from socrata import __version__
 
-setup(name='pickle-warehouse',
+setup(name='socrata',
       author='Thomas Levine',
       author_email='_@thomaslevine.com',
       description='Download data from Socrata open data portals.',
