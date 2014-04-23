@@ -7,4 +7,5 @@ __version__ = '0.0.1'
 def metadata(domain, directory = '.socrata'):
     'Generate metadata about datasets.'
     warehouse = Warehouse(directory)
-    yield from _download(warehouse, domain)
+    for x in _download(warehouse, domain):
+        yield x

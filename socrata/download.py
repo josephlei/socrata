@@ -37,5 +37,6 @@ def download(warehouse, domain):
         if search_results == []:
             break
         else:
-            yield from search_results
+            for search_result in search_results:
+                yield search_result
             page_number += 1
