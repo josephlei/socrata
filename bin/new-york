@@ -1,4 +1,0 @@
-#!/usr/bin/env python3
-import socrata
-g = socrata.metadata('https://data.cityofnewyork.us', '/home/tlevine/dadawarehouse.thomaslevine.com/big/socrata')
-print(next(g))
