@@ -1,0 +1,5 @@
+Get metadata from Socrata sites. ::
+
+    from socrata import metadata
+    for dataset in metadata('https://data.cityofnewyork.us'):
+        print(dataset)
