@@ -1,3 +1,5 @@
+from collections import namedtuple
+
 import nose.tools as n
 
 import socrata.download as dl
@@ -27,8 +29,9 @@ def test_get_error():
 
 def test_page():
     the_json = '[{}]'
+    Response = namedtuple('Response', ['text'])
     fake_warehouse = {
-        'https://foo.bar/api/views?page=1': the_json,
+        'https://foo.bar/api/views?page=1': Response(the_json),
     }
     observed = dl.page(lambda _: the_json, 'https://foo.bar', 1)
     n.assert_list_equal(observed, [{}])
