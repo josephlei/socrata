@@ -7,4 +7,4 @@ __version__ = '0.0.1'
 def metadata(domain, directory):
     'Generate metadata about datasets.'
     warehouse = Warehouse(directory)
-    yield from download(warehouse, domain)
+    yield from _download(warehouse, domain)

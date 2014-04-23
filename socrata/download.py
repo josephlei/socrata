@@ -1,4 +1,5 @@
 import json
+import functools
 try:
     from urllib.parse import urljoin
 except ImportError:
