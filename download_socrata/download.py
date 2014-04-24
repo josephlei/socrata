@@ -6,23 +6,7 @@ except ImportError:
     from urlparse import urljoin
 
 import requests
-
-def get(warehouse, url, requests_get = requests.get):
-    if url in warehouse:
-        output = warehouse[url]
-    else:
-        try:
-            response = requests_get(url)
-        except Exception as error:
-            output = error, None
-        else:
-            output = None, response
-        warehouse[url] = output
-    error, response = output
-    if error == None:
-        return response
-    else:
-        raise error
+from picklecache import get
 
 def page(get, domain_with_scheme, page_number):
     full_url = urljoin(domain_with_scheme, '/api/views?page=%d' % page_number)
