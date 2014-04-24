@@ -2,7 +2,7 @@ from collections import namedtuple
 
 import nose.tools as n
 
-import socrata.download as dl
+import download_socrata.download as dl
 
 def test_get_success():
     fake_warehouse = {}
