@@ -6,7 +6,7 @@ except ImportError:
     from urlparse import urljoin
 
 import requests
-from picklecache import get
+from picklecache import downloader
 
 def page(get, domain_with_scheme, page_number):
     full_url = urljoin(domain_with_scheme, '/api/views?page=%d' % page_number)
@@ -16,8 +16,9 @@ def page(get, domain_with_scheme, page_number):
 
 def download(warehouse, domain):
     page_number = 1
+    get = downloader(requests.get, warehouse)
     while True:
-        search_results = page(functools.partial(get, warehouse), domain, page_number)
+        search_results = page(get, domain, page_number)
         if search_results == []:
             break
         else:
